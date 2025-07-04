@@ -1,0 +1,25 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Allure Reports
+allure-results/
+allure-report/
+
+# Test output
+test-output/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# IntelliJ IDEA
+.idea/
+*.iml
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
