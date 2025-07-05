@@ -40,4 +40,21 @@ public class UserClient {
                 .when()
                 .get("/users/" + id);
     }
+
+    public static Response getUsersWithName(String name) {
+        return given()
+                .baseUri(Config.BASE_URL)
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/users/search?q=" + name);
+    }
+
+    public static Response getUsersSorted(String sortedBy, String order) {
+        return given()
+                .baseUri(Config.BASE_URL)
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/users?sortBy=" + sortedBy + "&order=" + order);
+
+    }
 }
