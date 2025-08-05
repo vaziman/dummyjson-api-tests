@@ -1,8 +1,8 @@
-# 🧪 Full API Test Cases for DummyJSON
+#  Full API Test Cases for DummyJSON
 
 ---
 
-## 📂 AUTHENTICATION (`/auth/login`, `/auth/me`)
+##  AUTHENTICATION (`/auth/login`, `/auth/me`)
 | TC ID | Title                                         | Steps                                                             | Expected Result                                              |
 | ----- | --------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------ |
 | TC001 | Login with valid credentials                  | POST /auth/login with valid username/password                     | 200 OK, response contains `accessToken`                      |
@@ -24,7 +24,7 @@
 
 ---
 
-## 📂 USERS (`/users`, `/users/{id}`, `/users/search`)
+##  USERS (`/users`, `/users/{id}`, `/users/search`)
 
 | TC ID | Title                          | Steps                         | Expected Result                              |
 |-------|--------------------------------|-------------------------------|-----------------------------------------------|
@@ -42,7 +42,7 @@
 
 ---
 
-## 📂 PRODUCTS (`/products`, `/products/{id}`, `/products/search`)
+##  PRODUCTS (`/products`, `/products/{id}`, `/products/search`)
 
 | TC ID | Title                                      | Steps                                                         | Expected Result                             |
 |-------|--------------------------------------------|----------------------------------------------------------------|----------------------------------------------|
@@ -58,7 +58,7 @@
 
 ---
 
-## 📂 CARTS (`/carts`, `/carts/{id}`, `/carts/user/{userId}`)
+##  CARTS (`/carts`, `/carts/{id}`, `/carts/user/{userId}`)
 
 | TC ID | Title                                     | Steps                                                         | Expected Result                           |
 |-------|-------------------------------------------|----------------------------------------------------------------|--------------------------------------------|
@@ -71,7 +71,7 @@
 
 ---
 
-## 📂 TODOS (`/todos`, `/todos/{id}`, `/todos/user/{userId}`)
+##  TODOS (`/todos`, `/todos/{id}`, `/todos/user/{userId}`)
 
 | TC ID | Title                                     | Steps                                                     | Expected Result                             |
 |-------|-------------------------------------------|------------------------------------------------------------|----------------------------------------------|
@@ -84,7 +84,7 @@
 
 ---
 
-## 📂 POSTS (`/posts`, `/posts/{id}`, `/posts/user/{userId}`)
+##  POSTS (`/posts`, `/posts/{id}`, `/posts/user/{userId}`)
 
 | TC ID | Title                                     | Steps                                                     | Expected Result                            |
 |-------|-------------------------------------------|------------------------------------------------------------|---------------------------------------------|
@@ -96,7 +96,7 @@
 
 ---
 
-## 📂 COMMENTS (`/comments`, `/comments/{id}`, `/comments/post/{postId}`)
+##  COMMENTS (`/comments`, `/comments/{id}`, `/comments/post/{postId}`)
 
 | TC ID | Title                                     | Steps                                                     | Expected Result                            |
 |-------|-------------------------------------------|------------------------------------------------------------|---------------------------------------------|
@@ -107,7 +107,7 @@
 
 ---
 
-## 🔁 COMMON NEGATIVE CASES
+##  COMMON NEGATIVE CASES
 
 | TC ID | Title                                         | Steps                                                    | Expected Result                        |
 |-------|-----------------------------------------------|-----------------------------------------------------------|-----------------------------------------|
@@ -118,11 +118,6 @@
 
 ---
 
-## 🧭 Notes
+##  Notes
 
-- ✅ All endpoints tested using **Java + RestAssured**
-- 🧪 Future extensions: add JSON schema validation, performance smoke tests, and contract testing
-- 📊 Can be imported into TestRail / Allure or manually maintained in Markdown
-
----
 
