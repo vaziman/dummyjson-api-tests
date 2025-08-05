@@ -22,7 +22,7 @@ public class Config {
     public static final String VALID_NAME_LOWERCASE = "emily";
 
 
-    public static final String INVALID_FIRST_NAME = "xxxzzzXYZ";
+    public static final String INVALID_FIRST_NAME = "asdfgh";
 
     public static final String SORT_BY_ASC = "asc";
     public static final String SORT_BY_DESC = "desc";
