@@ -4,7 +4,7 @@
 
 ##  AUTHENTICATION (`/auth/login`, `/auth/me`)
 | TC ID | Title                                         | Steps                                                             | Expected Result                                              |
-| ----- | --------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------ |
+| ----- | --------------------------------------------- | ----------------------------------------------------------------- |--------------------------------------------------------------|
 | TC001 | Login with valid credentials                  | POST /auth/login with valid username/password                     | 200 OK, response contains `accessToken`                      |
 | TC002 | Login with invalid credentials                | POST /auth/login with wrong username/password                     | 400 Bad Request, message: `"Invalid credentials"`            |
 | TC003 | Login with empty credentials                  | POST /auth/login with empty username/password                     | 400 Bad Request, message: `"Username and password required"` |
@@ -14,7 +14,7 @@
 | TC007 | Login with missing password field             | POST /auth/login with only username in request body               | 400 Bad Request, message: `"Username and password required"` |
 | TC008 | Login with incorrect request body structure   | POST /auth/login with invalid JSON structure                      | 400 Bad Request or appropriate validation error              |
 | TC009 | Login with extra fields in request body       | POST /auth/login with additional unexpected fields                | 200 OK or ignored extra fields, login still succeeds         |
-| TC010 | Login with SQL injection in username          | POST /auth/login with `username="' OR 1=1 --"`                    | 400 Bad Request or handled as invalid credentials            |
+| TC010 | Login with SQL injection in username          | POST /auth/login with `username="' OR 1=1 --"`                    | 400 Bad Request, message: `Invalid credentials`              |
 | TC011 | Login with XSS payload in username            | POST /auth/login with `username="<script>alert(1)</script>"`      | 400 Bad Request or input sanitized                           |
 | TC012 | Login using invalid HTTP method               | GET /auth/login instead of POST                                   | 405 Method Not Allowed                                       |
 | TC013 | Login with Content-Type missing or invalid    | POST /auth/login without or with wrong Content-Type header        | 415 Unsupported Media Type or 400 Bad Request                |

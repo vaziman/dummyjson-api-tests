@@ -27,5 +27,7 @@ public class Config {
     public static final String SORT_BY_ASC = "asc";
     public static final String SORT_BY_DESC = "desc";
 
+    public static final String SQL_INJECTION = "' OR 1=1 -- ";
+
 
 }

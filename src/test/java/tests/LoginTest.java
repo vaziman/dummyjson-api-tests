@@ -13,10 +13,11 @@ import utils.Config;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
+@Tag("auth")
 @Slf4j
 public class LoginTest extends BaseTest {
 
-    @Tag("auth")
+
     @DisplayName("TC001 Login with valid credentials")
     @Test
     public void loginWithValidCredentials_shouldReturnAccessToken() {
@@ -30,7 +31,7 @@ public class LoginTest extends BaseTest {
         log.info("Access token: {}", token);
     }
 
-    @Tag("auth")
+
     @DisplayName("TC002 Login with invalid credentials")
     @Test
     public void loginWithInvalidCredentials_shouldReturn400() {
@@ -41,7 +42,7 @@ public class LoginTest extends BaseTest {
                 .body("message", equalTo("Invalid credentials"));
     }
 
-    @Tag("auth")
+
     @DisplayName("TC003 Login with empty credentials")
     @Test
     public void loginWithEmptyCredentials_shouldReturn400() {
@@ -52,7 +53,7 @@ public class LoginTest extends BaseTest {
                 .body("message", equalTo("Username and password required"));
     }
 
-    @Tag("auth")
+
     @DisplayName("TC004 Get current user with valid token")
     @Test
     public void GetCurrentAuthUserWithValidToken_shouldReturn200() {
@@ -65,7 +66,7 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @Tag("auth")
+
     @DisplayName("TC005 Get current user with invalid/expired token")
     @Test
     public void GetCurrentAuthUserWithInvalidToken_shouldReturn400() {
@@ -74,5 +75,52 @@ public class LoginTest extends BaseTest {
         response.then()
                 .statusCode(401)
                 .body("message", equalTo("Invalid/Expired Token!"));
+    }
+
+    @DisplayName("TC006 Login with missing username field")
+    @Test
+    public void loginWithMissingUsername_shouldReturn400() {
+        Response response = AuthClient.login(Config.EMPTY_STRING, Config.INVALID_PASSWORD);
+        response.then()
+                .statusCode(400)
+                .body("message", equalTo("Username and password required"));
+    }
+
+    @DisplayName("TC007 Login with missing password field")
+    @Test
+    public void loginWithMissingPassword_shouldReturn400() {
+        Response response = AuthClient.login(Config.VALID_USERNAME, Config.EMPTY_STRING);
+        response.then()
+                .statusCode(400)
+                .body("message", equalTo("Username and password required"));
+    }
+
+    @DisplayName("TC008 Login with incorrect request body structure")
+    @Test
+    public void loginWithIncorrectRequest_shouldReturn400() {
+        Response response = AuthClient.invalidJsonForLogin(Config.VALID_USERNAME, Config.VALID_PASSWORD);
+
+        response.then()
+                .statusCode(400)
+                .body("message", equalTo("Username and password required"));
+    }
+
+    @DisplayName("TC009 Login with extra fields in request body")
+    @Test
+    public void loginWithExtraFields_shouldReturn200() {
+        Response response = AuthClient.loginWithExtraFields(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.INVALID_FIRST_NAME);
+
+        response.then()
+                .statusCode(200)
+                .body("id", equalTo(1));
+    }
+
+    @DisplayName("TC010 Login with SQL injection in username")
+    @Test
+    public void loginWithSQLInjection_shouldReturn400() {
+        Response response = AuthClient.loginWithSqlInjection(Config.VALID_PASSWORD);
+        response.then()
+                .statusCode(400)
+                .body("message", equalTo("Invalid credentials"));
     }
 }
