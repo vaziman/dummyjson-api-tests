@@ -27,8 +27,8 @@ public class LoginTest extends BaseTest {
                 .statusCode(200)
                 .body("accessToken", notNullValue());
 
-        String token = response.jsonPath().getString("accessToken");
-        log.info("Access token: {}", token);
+//        String token = response.jsonPath().getString("accessToken");
+//        log.info("Access token: {}", token);
     }
 
 
@@ -119,6 +119,64 @@ public class LoginTest extends BaseTest {
     @Test
     public void loginWithSQLInjection_shouldReturn400() {
         Response response = AuthClient.loginWithSqlInjection(Config.VALID_PASSWORD);
+        response.then()
+                .statusCode(400)
+                .body("message", equalTo("Invalid credentials"));
+    }
+
+    @DisplayName("TC011 Login with XSS payload in username")
+    @Test
+    public void loginWithXSSPayload_shouldReturn200() {
+    Response response = AuthClient.login(Config.ALERT_SCRIPT, Config.VALID_PASSWORD);
+
+    response.then()
+            .statusCode(400)
+            .body("message", equalTo("Invalid credentials"));
+    }
+
+    @DisplayName("TC012 Login using invalid HTTP method")
+    @Test
+    public void loginWithInvalidHTTPMethod_shouldReturn405() {
+        Response response = AuthClient.loginWithGetInsteadOfPost(Config.VALID_USERNAME, Config.VALID_PASSWORD);
+
+        response.then()
+                .statusCode(401)
+                .body("message", equalTo("Access Token is required"));
+    }
+
+
+    @DisplayName("TC013 Login with Content-Type missing or invalid")
+    @Test
+    public void loginWithContentTypeMissingOrInvalid_shouldReturn400() {
+        Response response = AuthClient.loginWrongContentType(Config.VALID_USERNAME, Config.VALID_PASSWORD);
+        response.then()
+                .statusCode(400)
+                .body("message", equalTo("Username and password required"));
+    }
+
+    @DisplayName("TC014 Get current user without Authorization header")
+    @Test
+    public void getUserWithoutAuthorizationHeader_shouldReturn401() {
+        Response response = AuthClient.getCurrentUserWithoutAuthHeader();
+        response.then()
+                .statusCode(401)
+                .body("message", equalTo("Access Token is required"));
+    }
+
+    @DisplayName("TC015 Get current user with token in wrong format ")
+    @Test
+    public void getUserWithWrongFormat_shouldReturn401() {
+        Response response = AuthClient.getCurrentUserWithWrongAuthHeader();
+        response.then()
+                .statusCode(401)
+                .body("message", equalTo("Invalid/Expired Token!"));
+
+    }
+
+    @DisplayName("TC016 Login with whitespace-only username/password")
+    @Test
+    public void loginWithWhitespaceOnlyUsernamePassword_shouldReturn400() {
+        Response response = AuthClient.login(Config.WHITESPACE, Config.WHITESPACE);
         response.then()
                 .statusCode(400)
                 .body("message", equalTo("Invalid credentials"));

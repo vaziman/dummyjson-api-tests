@@ -10,6 +10,7 @@ public class Config {
     public static final String INVALID_USERNAME = "123";
     public static final String INVALID_PASSWORD = "111";
     public static final String EMPTY_STRING = "";
+    public static final String WHITESPACE = " ";
 
     public static final Integer TOTAL_USERS = 208;
     public static final Integer DEFAULT_LIMIT = 30;
@@ -28,6 +29,6 @@ public class Config {
     public static final String SORT_BY_DESC = "desc";
 
     public static final String SQL_INJECTION = "' OR 1=1 -- ";
-
+    public static final String ALERT_SCRIPT= "<script>alert(1)</script>";
 
 }

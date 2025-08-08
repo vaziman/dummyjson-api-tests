@@ -52,4 +52,41 @@ public class AuthClient {
                 .when()
                 .post("/auth/login");
     }
+
+    public static Response loginWithGetInsteadOfPost(String login, String password) {
+        LoginRequest loginRequest = new LoginRequest(login, password);
+        return given()
+                .baseUri(Config.BASE_URL)
+                .contentType(ContentType.JSON)
+                .body(loginRequest)
+                .when()
+                .get("/auth/login");
+    }
+
+    public static Response loginWrongContentType(String login, String password) {
+        LoginRequest loginRequest = new LoginRequest(login, password);
+        String contentType = "text/plain";
+        String body = "{\"username\":" + login+ ",\"password\":" + password + "}";
+        return given()
+                .baseUri(Config.BASE_URL)
+                .contentType(contentType)
+                .body(body)
+                .when()
+                .post("/auth/login");
+    }
+
+    public static Response getCurrentUserWithoutAuthHeader(){
+        return given()
+                .baseUri(Config.BASE_URL)
+                .when()
+                .get("/auth/me");
+    }
+
+    public static Response getCurrentUserWithWrongAuthHeader(){
+        return given()
+                .baseUri(Config.BASE_URL)
+                .header("Authorization", "Token abc123")
+                .when()
+                .get("/auth/me");
+    }
 }

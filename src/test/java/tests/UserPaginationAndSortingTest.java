@@ -84,13 +84,13 @@ public class UserPaginationAndSortingTest extends BaseTest {
 
 
     @Test
-    @DisplayName(" TC022 | Search user by full first name")
+    @DisplayName(" TC022 Search user by full first name")
     public void shouldReturnUsers_WhenFullNameIsExact() {
         Response response = UserClient.getUsersWithName(Config.VALID_FIRST_NAME);
         response.then()
                 .statusCode(200)
                 .body("users.firstName", hasItem(equalTo(Config.VALID_FIRST_NAME)));
-        log.info("Matched first names: {}", response.jsonPath().getList("users.firstName"));
+//        log.info("Matched first names: {}", response.jsonPath().getList("users.firstName"));
     }
 
     @Test
